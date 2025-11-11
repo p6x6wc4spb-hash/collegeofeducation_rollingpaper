@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>교육학부 익명 롤링페이퍼</title>
+    <style>
+        body { font-family: 'Malgun Gothic', sans-serif; background: #f4f4f9; color: #333; margin: 0; padding: 20px; text-align: center; }
+        .container { max-width: 700px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { color: #8B0000; }
+        .message-form, .message-list { margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; }
+        textarea { width: 95%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; resize: vertical; }
+        button { background: #007BFF; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .message-card { background: #e0f7fa; padding: 15px; margin-bottom: 10px; border-left: 5px solid #00bcd4; text-align: left; border-radius: 4px; }
+        .countdown { font-size: 1.5em; color: #FF4500; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎄 교육학부의 밤 익명 롤링페이퍼</h1>
+
+        <div class="message-form">
+            <h2>익명 메시지 남기기</h2>
+            <form action="{{ url_for('write_message') }}" method="post">
+                <textarea name="content" rows="4" placeholder="익명으로 따뜻한 메시지를 남겨주세요!" required></textarea>
+                <button type="submit">메시지 보내기</button>
+            </form>
+        </div>
+        
+        <hr>
+        
+        <div class="message-list">
+            {% if is_open %}
+                <h2>🎁 크리스마스 깜짝 공개! (총 {{ messages | length }}개)</h2>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="message-card">
+                            <p>{{ message.content }}</p>
+                            <small>작성됨: {{ message.timestamp }} (익명)</small>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>아직 메시지가 없어요. 첫 번째 메시지를 남겨주세요!</p>
+                {% endif %}
+            {% else %}
+                <h2>🤫 잠금 중: 크리스마스(12/25)에 공개됩니다!</h2>
+                <p class="countdown">공개까지 D-{{ days_left }}</p>
+                <p>지금 작성된 메시지는 12월 25일 00:00에 모두 공개됩니다. 기대해주세요!</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
