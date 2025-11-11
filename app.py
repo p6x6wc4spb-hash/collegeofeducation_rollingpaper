@@ -55,7 +55,7 @@ def save_message(message_data):
 app = Flask(__name__)
 
 # 공개 날짜 설정: 현재 연도의 12월 25일 00시 00분 (KST 기준)
-RELEASE_DATE = datetime(datetime.now().year, 12, 25, 0, 0, 0)
+RELEASE_DATE = datetime(datetime.now().year, 11, 12, 8, 0, 0)
 
 
 # [수정] GET 요청(페이지 보기)만 처리하며, D-day 로직을 포함합니다.
