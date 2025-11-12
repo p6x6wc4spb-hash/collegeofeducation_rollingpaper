@@ -78,24 +78,15 @@
             color: #777;
             text-align: right;
         }
-        
         .lock-screen {
-            /* 크리스마스 이미지 URL을 여기에 넣어주세요! */
-            background-image: url('https://i.imgur.com/your-christmas-image.png'); 
-            background-size: cover;
-            background-position: center;
-            /* [수정] 배경색을 밝은 연두색 계열로 변경 */
-            background-color: #e6ffe6; /* 아주 밝은 연두색 */
-            color: #333; /* 텍스트 색상을 어둡게 */
+            background-color: #333;
+            color: white;
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            text-shadow: none; /* 텍스트 그림자 제거 */
-            border: 2px solid #5cb85c; /* 테두리 추가 */
         }
         .lock-screen h2 {
-            /* [수정] 제목 색상 변경 */
-            color: #d9534f; /* 크리스마스 레드 */
+            color: #ffcc00; /* 황금색 */
             font-size: 2em;
         }
         .lock-screen p {
@@ -117,3 +108,40 @@
             <h2>메시지 작성</h2>
             <p>익명으로 자유롭게 메시지를 남겨주세요.</p>
             <form method="POST" action="{{ url_for('write_message') }}">
+                <textarea name="content" placeholder="응원의 메시지를 작성해주세요. (500자 이내)" maxlength="500" required></textarea>
+                <button type="submit">메시지 보내기</button>
+            </form>
+        </div>
+
+        <div class="message-list">
+            
+            {% if is_released %}
+                <h2>🎁 크리스마스 깜짝 공개!</h2>
+                <p>소중한 메시지들이 도착했어요. 모두 확인해 보세요.</p>
+                
+                {% for message in messages %}
+                <div class="message-card">
+                    <div class="message-content">{{ message.content }}</div>
+                    <div class="message-timestamp">작성 시각: {{ message.timestamp }}</div>
+                </div>
+                {% endfor %}
+
+            {% else %}
+                <div class="lock-screen">
+                    <h2>메시지 잠금 중: {{ release_date_str }}에 공개됩니다.</h2>
+                    <p>메시지는 **{{ release_date_str }}**에 모두 공개됩니다. 기대해주세요!</p>
+                    
+                    {% if days_left >= 0 %}
+                    <div class="d-day">공개까지 D-{{ days_left }}</div>
+                    {% else %}
+                    <div class="d-day">곧 공개됩니다!</div>
+                    {% endif %}
+                    
+                    <p>지금은 다른 사람들의 메시지를 작성할 수만 있습니다.</p>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</body>
+</html>
