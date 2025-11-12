@@ -2,51 +2,145 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>교육학부 익명 롤링페이퍼</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎄 학부의 밤 롤링 페이퍼</title>
     <style>
-        body { font-family: 'Malgun Gothic', sans-serif; background: #f4f4f9; color: #333; margin: 0; padding: 20px; text-align: center; }
-        .container { max-width: 700px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        h1 { color: #8B0000; }
-        .message-form, .message-list { margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; }
-        textarea { width: 95%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; resize: vertical; }
-        button { background: #007BFF; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
-        button:hover { background: #0056b3; }
-        .message-card { background: #e0f7fa; padding: 15px; margin-bottom: 10px; border-left: 5px solid #00bcd4; text-align: left; border-radius: 4px; }
-        .countdown { font-size: 1.5em; color: #FF4500; font-weight: bold; }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #d9534f; /* 크리스마스 레드 */
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+        .message-form {
+            background-color: #e9ecef;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            min-height: 100px;
+            font-size: 1em;
+        }
+        button {
+            background-color: #5cb85c; /* 크리스마스 그린 */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        .message-list {
+            margin-top: 30px;
+            text-align: left;
+        }
+        .message-card {
+            background-color: #ffe0b2; /* 포스트잇 색상 */
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            word-wrap: break-word;
+        }
+        .message-content {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            white-space: pre-wrap; /* 줄바꿈 유지 */
+        }
+        .message-timestamp {
+            font-size: 0.8em;
+            color: #777;
+            text-align: right;
+        }
+        .lock-screen {
+            background-color: #333;
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        .lock-screen h2 {
+            color: #ffcc00; /* 황금색 */
+            font-size: 2em;
+        }
+        .lock-screen p {
+            font-size: 1.2em;
+        }
+        .d-day {
+            font-size: 3em;
+            color: #d9534f;
+            font-weight: bold;
+            margin: 15px 0;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎄 교육학부의 밤 익명 롤링페이퍼</h1>
+        <h1>🎄 학부의 밤 롤링 페이퍼</h1>
 
         <div class="message-form">
-            <h2>익명 메시지 남기기</h2>
-            <form action="{{ url_for('write_message') }}" method="post">
-                <textarea name="content" rows="4" placeholder="익명으로 따뜻한 메시지를 남겨주세요!" required></textarea>
+            <h2>메시지 작성</h2>
+            <p>익명으로 자유롭게 메시지를 남겨주세요.</p>
+            <form method="POST" action="{{ url_for('write_message') }}">
+                <textarea name="content" placeholder="응원의 메시지를 작성해주세요. (500자 이내)" maxlength="500" required></textarea>
                 <button type="submit">메시지 보내기</button>
             </form>
         </div>
-        
-        <hr>
-        
+
         <div class="message-list">
-            {% if is_open %}
-                <h2>🎁 크리스마스 깜짝 공개! (총 {{ messages | length }}개)</h2>
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="message-card">
-                            <p>{{ message.content }}</p>
-                            <small>작성됨: {{ message.timestamp }} (익명)</small>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <p>아직 메시지가 없어요. 첫 번째 메시지를 남겨주세요!</p>
-                {% endif %}
+            
+            {% if is_released %}
+                <h2>🎁 크리스마스 깜짝 공개!</h2>
+                <p>소중한 메시지들이 도착했어요. 모두 확인해 보세요.</p>
+                
+                {% for message in messages %}
+                <div class="message-card">
+                    <div class="message-content">{{ message.content }}</div>
+                    <div class="message-timestamp">작성 시각: {{ message.timestamp }}</div>
+                </div>
+                {% endfor %}
+
             {% else %}
-                <h2>🤫 잠금 중: 크리스마스(12/25)에 공개됩니다!</h2>
-                <p class="countdown">공개까지 D-{{ days_left }}</p>
-                <p>지금 작성된 메시지는 12월 25일 00:00에 모두 공개됩니다. 기대해주세요!</p>
+                <div class="lock-screen">
+                    <h2>메시지 잠금 중: {{ release_date_str }}에 공개됩니다.</h2>
+                    <p>메시지는 **{{ release_date_str }}**에 모두 공개됩니다. 기대해주세요!</p>
+                    
+                    {% if days_left >= 0 %}
+                    <div class="d-day">공개까지 D-{{ days_left }}</div>
+                    {% else %}
+                    <div class="d-day">곧 공개됩니다!</div>
+                    {% endif %}
+                    
+                    <p>지금은 다른 사람들의 메시지를 작성할 수만 있습니다.</p>
+                </div>
             {% endif %}
+
         </div>
     </div>
 </body>
