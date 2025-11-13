@@ -134,7 +134,7 @@
             {% else %}
                 <div class="lock-screen">
                     <h2>메시지 잠금 중: 따뜻한 크리스마스에 만나요!</h2>
-                    <p>남겨주시는 메시지들은 **{{ release_date_str }}**에 공개됩니다. 설레는 마음으로 기대해 주세요!</p>
+                    <p>남겨주시는 메시지들은 {{ release_date_str }}에 공개됩니다. 설레는 마음으로 기대해 주세요!</p>
                     
                     {% if days_left >= 0 %}
                     <div class="d-day">공개까지 D-{{ days_left }}</div>
@@ -150,4 +150,5 @@
     </div>
 </body>
 </html>
+
 
