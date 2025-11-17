@@ -54,7 +54,7 @@ KST = pytz.timezone('Asia/Seoul')
 
 # 현재 KST 시각: 11월 12일 15시 08분 (KST)
 # 테스트를 위해 오늘 오후 3시 15분으로 설정합니다. (현재 시간보다 미래)
-RELEASE_DATE = KST.localize(datetime(datetime.now().year, 11, 17, 10, 00, 0))
+RELEASE_DATE = KST.localize(datetime(datetime.now().year, 12, 25, 00, 00, 0))
 
 
 @app.route('/', methods=['GET'])
@@ -101,6 +101,7 @@ if __name__ == '__main__':
 
     app.run(debug=True)
     # Force deploy
+
 
 
 
