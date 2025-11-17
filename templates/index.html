@@ -111,7 +111,7 @@
 
         <div class="message-form">
             <h2>메시지 작성</h2>
-            <p>익명으로 자유롭게 메시지를 남겨주세요.\n (부적절한 메세지는 통보 없이 삭제될 수 있습니다).</p>
+            <p>익명으로 자유롭게 메시지를 남겨주세요.(부적절한 메세지는 통보 없이 삭제될 수 있습니다.)</p>
             <form method="POST" action="{{ url_for('write_message') }}">
                 <textarea name="content" placeholder="교육학부 학우분들께 그동안 전하고 싶었던 말을 써주세요!(500자 이내)" maxlength="500" required></textarea>
                 <button type="submit">메시지 보내기</button>
@@ -150,6 +150,7 @@
     </div>
 </body>
 </html>
+
 
 
 
