@@ -128,9 +128,19 @@
                 <div class="message-card">
                     <div class="message-content">{{ message.content }}</div>
                 </div>
-                {% endfor %}
-                    </p>지금까지 <청춘>의 행사에 참여해 주셔서 감사합니다. 앞으로도 교육계열의 행사에 많은 관심 부탁드립니다!</p>
-            {% else %}
+               {% endfor %}
+
+                <div style="margin-top: 50px; padding: 20px; color: #777; line-height: 1.8; font-size: 0.95em; border-top: 1px solid #eee; text-align: center;">
+                    <p style="margin-bottom: 20px;">
+                        2025년 내내 행사를 위해 열심히 고민한 국원들의 노고가<br>
+                        학우 여러분들의 추억에 조금이나마 기분 좋게 닿았기를 바랍니다.
+                    </p>
+
+                    <p style="font-size: 0.9em; color: #999;">
+                        지금까지 &lt;청춘&gt;의 행사에 참여해 주셔서 감사합니다. 앞으로도 교육계열의 행사에 많은 관심 부탁드립니다!
+                    </p>
+                </div>
+                {% else %}
                 <div class="lock-screen">
                     <h2>메시지 잠금 중: 크리스마스에 공개됩니다!</h2>
                     <p>남겨주시는 메시지들은 {{ release_date_str }}에 공개됩니다. 설레는 마음으로 기대해 주세요!</p>
@@ -149,6 +159,7 @@
     </div>
 </body>
 </html>
+
 
 
 
